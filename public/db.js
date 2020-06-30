@@ -1,6 +1,6 @@
 let db;
 
-const request = indexedDB.open("budget", 1);
+const request = window.indexedDB.open("budget", 1);
 
 request.onupgradeneeded = function (event) {
     const db = event.target.result;
@@ -15,7 +15,7 @@ request.onsuccess = function (event) {
 };
 
 request.onerror = function (event) {
-    console.log("No!" + event.target.errorCode);
+    console.log("Error" + event.target.errorCode);
 };
 
 function saveRecord(record) {
@@ -35,8 +35,7 @@ function checkDatabase() {
                 method: "POST",
                 body: JSON.stringify(getAll.result),
                 headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json"
+                    Accept: "application/json, text/plain, */*", "Content-Type": "application/json"
                 }
             })
                 .then(response => response.json())
